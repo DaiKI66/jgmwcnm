@@ -16,28 +16,39 @@
         }
         #container {
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             text-align: center;
-            font-size: 20px;
+            font-size: 22px;
             color: #333;
+            transition: all 0.3s ease-in-out;
         }
         button {
-            margin: 10px;
-            padding: 10px 20px;
+            margin: 12px;
+            padding: 12px 24px;
             font-size: 18px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
         }
         #yesBtn {
             background-color: #4CAF50;
             color: white;
+            display: inline-block;
+        }
+        #yesBtn:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
         }
         #noBtn {
             background-color: #f44336;
             color: white;
+        }
+        #noBtn:hover {
+            background-color: #d32f2f;
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -45,14 +56,21 @@
     <div id="container">
         <p>想成为鸡广明他爹吗</p>
         <button id="yesBtn" onclick="becomeFather()">想</button>
-        <button id="noBtn" onclick="growYesButton()">不想</button>
+        <button id="noBtn" onclick="adjustButtons()">不想</button>
     </div>
     <script>
-        let yesButtonSize = 18;
-        function growYesButton() {
-            yesButtonSize += 5;
-            document.getElementById('yesBtn').style.fontSize = yesButtonSize + 'px';
-            document.getElementById('yesBtn').style.padding = (yesButtonSize / 2) + 'px ' + yesButtonSize + 'px';
+        let yesButton = document.getElementById('yesBtn');
+        let noButton = document.getElementById('noBtn');
+        function adjustButtons() {
+            let currentYesSize = window.getComputedStyle(yesButton).fontSize;
+            let newYesSize = parseInt(currentYesSize) + 5;
+            yesButton.style.fontSize = newYesSize + 'px';
+            yesButton.style.padding = (newYesSize / 2) + 'px ' + newYesSize + 'px';
+            
+            let currentNoSize = window.getComputedStyle(noButton).fontSize;
+            let newNoSize = Math.max(parseInt(currentNoSize) - 1, 0);
+            noButton.style.fontSize = newNoSize + 'px';
+            noButton.style.padding = (newNoSize / 2) + 'px ' + newNoSize + 'px';
         }
         function becomeFather() {
             document.getElementById('container').innerHTML = '<p>太棒了！恭喜你成为鸡广明他爹</p>';
